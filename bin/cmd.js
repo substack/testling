@@ -36,7 +36,7 @@ var server = http.createServer(function (req, res) {
         res.end('<html><body><script src="/bundle.js"></script></body></html>');
     }
     else if (req.url === '/bundle.js') {
-        res.setHeader('content-type', 'application/javascript');
+        res.setHeader('content-type', 'application/javascript; charset=utf-8;');
         res.end(prelude + '\n' + src);
     }
 });
