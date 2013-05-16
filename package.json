@@ -24,7 +24,8 @@
         "optimist" : "~0.4.0",
         "xhr-write-stream" : "~0.1.2",
         "concat-stream" : "~0.1.1",
-        "tap-finished" : "~0.0.0"
+        "tap-finished" : "~0.0.0",
+        "browser-launcher" : "0.2.0"
     },
     "bundledDependencies" : [ "browser-launcher" ],
     "devDependencies": {
