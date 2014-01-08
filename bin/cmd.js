@@ -91,9 +91,29 @@ if ((process.stdin.isTTY || argv._.length) && argv._[0] !== '-') {
             scripts = expanded.script;
 
             if (expanded.file.length) {
-                var args = expanded.file.concat('--debug');
+                var spawnOpts = { cwd: dir, env: env };
+                var ps;
 
-                var ps = spawn('browserify', args, { cwd: dir, env: env });
+                if (pkg.testling.preprocess) {
+                  var cmd, ags;
+
+                  if (typeof pkg.testling.preprocess === 'string') {
+                    cmd = parseCommand(pkg.testling.preprocess);
+                    args = cmd.slice(1);
+                    cmd = cmd[0];
+                  }
+                  else {
+                    cmd = pkg.testling.preprocess.command;
+                    args = pkg.testling.preprocess.args;
+                  }
+
+                  ps = spawn(cmd, args, spawnOpts);
+                }
+                else {
+                  var args = expanded.file.concat('--debug');
+                  ps = spawn('browserify', args, spawnOpts);
+                }
+
                 ps.stdout.pipe(concat(function (src) {
                     bundle = src;
                     htmlQueue.forEach(function (f) { getHTML(f) });

@@ -120,6 +120,39 @@ The exit code of coverify is non-zero when there are unreachable expressions.
 
 Make sure you have [PhantomJS](https://github.com/ariya/phantomjs) installed; this is the headless browser that testling will run your tests in if you are not using the `-u` option.
 
+# custom preprocess command
+
+Its possible to configure testling to run a custom bundle command instead of
+the default(browserify --debug).  A simple use case is to prepend shims for
+testing a library in older browsers.
+
+For example, lets say you have created a library that uses ES5 features but
+needs to be tested in IE7. To test this library correctly the shims need to be
+prepended in the browserified bundle, which can be achieved doing something
+like this:
+
+```sh
+npm install --save-dev es5-shim json3
+```
+
+Then configure the "preprocess" option:
+
+```json
+{
+  "testling": {
+    "preprocess": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "browserify test/*.js | cat node_modules/json3/lib/json3.js node_modules/es5-shim/es5-sh{im,am}.js -"
+      ]
+    },
+  }
+}
+```
+
+The above runs browserify and prepend shims to the bundle served by testling.
+
 # install
 
 First, install `browserify` globally so that the `testling` command can find it
