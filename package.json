@@ -25,7 +25,7 @@
         "browser-launcher": "~1.0.1",
         "browserify": "3.x.x",
         "concat-stream": "~1.0.1",
-        "ecstatic": "~0.4.13",
+        "ecstatic": "~4.1.2",
         "ent": "~0.0.7",
         "glob": "~3.2.11",
         "jsonify": "~0.0.0",
